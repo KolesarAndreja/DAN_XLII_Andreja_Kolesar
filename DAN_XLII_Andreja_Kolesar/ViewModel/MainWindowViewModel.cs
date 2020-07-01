@@ -4,9 +4,6 @@ using DAN_XLII_Andreja_Kolesar.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -79,7 +76,7 @@ namespace DAN_XLII_Andreja_Kolesar.View
         }
         #endregion
 
-        #region delete and update commands
+        #region delete
         //Open messagebox where user can confirm deleting data
         private ICommand _deleteThisEmployee;
         public ICommand deleteThisEmployee
@@ -97,6 +94,7 @@ namespace DAN_XLII_Andreja_Kolesar.View
 
         private void DeleteThisUserExecute()
         {
+            //print confirm message
             MessageBoxResult result = MessageBox.Show("Do you realy want to delete this employee?", "Delete Employee", MessageBoxButton.YesNo);
 
             if (result == MessageBoxResult.Yes)
@@ -113,6 +111,9 @@ namespace DAN_XLII_Andreja_Kolesar.View
             return true;
         }
 
+        #endregion
+
+        #region update
 
         //open window for editing user's data
         private ICommand _editThisEmployee;
@@ -130,21 +131,20 @@ namespace DAN_XLII_Andreja_Kolesar.View
 
         private void EditThisUserExecute()
         {
-            try
-            {
-                //pass data about user as viewUser parameter
-                //EditUser editUser = new EditUser(viewUser);
-                //editUser.ShowDialog();
-                //if ((editUser.DataContext as EditUserViewModel).isUpdatedUser == true)
-                //{
-                //    userList = Service.Service.GetAllUsers();
+            //try
+            //{
+            //    AddAndEditEmployeeWindow editEmployee = new AddAndEditEmployeeWindow();
+            //    editEmployee.ShowDialog();
+            //    if ((editEmployee.DataContext as AddWindowViewModel).isUpdatedUser == true)
+            //    {
+            //        employeesList = Service.Service.GetAllEmployees();
 
-                //}
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString());
+            //}
         }
         private bool CanEditThisUserExecute()
         {

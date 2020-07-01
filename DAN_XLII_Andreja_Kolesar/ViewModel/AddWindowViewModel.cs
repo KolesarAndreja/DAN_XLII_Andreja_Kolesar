@@ -93,7 +93,7 @@ namespace DAN_XLII_Andreja_Kolesar.ViewModel
         #endregion
 
 
-        //create object of UserCard, tblUser and tblIdentityCard classes
+        #region constructor
         public AddWindowViewModel(AddAndEditEmployeeWindow addEmployeeOpen)
         {
             addEmployee = addEmployeeOpen;
@@ -103,6 +103,7 @@ namespace DAN_XLII_Andreja_Kolesar.ViewModel
             genderList = Service.Service.GetAllGenders();
             backgroundWorker.DoWork += DoWorkAdd;
         }
+        #endregion
 
         #region BackgroundWorkers's DoWork event handler
         public void DoWorkAdd(object sender, DoWorkEventArgs e)
@@ -134,6 +135,7 @@ namespace DAN_XLII_Andreja_Kolesar.ViewModel
             try
             {
                 Service.Service.AddNewEmployee(newEmployee);
+                //run backgroundworker
                 backgroundWorker.RunWorkerAsync();
                 isUpdatedEmployee = true;
                 addEmployee.Close();
@@ -145,6 +147,7 @@ namespace DAN_XLII_Andreja_Kolesar.ViewModel
             }
         }
 
+        //save when all fileds(except manager) are filled
         private bool CanSaveExecute()
         {
             if (String.IsNullOrEmpty(newEmployee.fullname) || newEmployee.dateOfBirth == null || String.IsNullOrEmpty(newEmployee.jmbg) || String.IsNullOrEmpty(newEmployee.IdentityCardNumber) || String.IsNullOrEmpty(newEmployee.phone) || newEmployee.getTblLocation == null || String.IsNullOrEmpty(newEmployee.sectorName) || newEmployee.getTblGender ==null)
