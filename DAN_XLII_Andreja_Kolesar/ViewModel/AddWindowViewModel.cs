@@ -3,6 +3,7 @@ using DAN_XLII_Andreja_Kolesar.Service;
 using DAN_XLII_Andreja_Kolesar.View;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace DAN_XLII_Andreja_Kolesar.ViewModel
     class AddWindowViewModel : ViewModelBase
     {
         AddAndEditEmployeeWindow addEmployee;
+
+        BackgroundWorker backgroundWorker = new BackgroundWorker();
 
         private vwEmployee _newEmployee;
         public vwEmployee newEmployee
@@ -98,7 +101,16 @@ namespace DAN_XLII_Andreja_Kolesar.ViewModel
             locationList = Service.Service.GetAllLocations();
             managerList = Service.Service.GetAllManagers();
             genderList = Service.Service.GetAllGenders();
+            backgroundWorker.DoWork += DoWorkAdd;
         }
+
+        #region BackgroundWorkers's DoWork event handler
+        public void DoWorkAdd(object sender, DoWorkEventArgs e)
+        {
+            string content = "Employee " + newEmployee.fullname + " with employeeId " + newEmployee.employeeId + " has been added.";
+            LogIntoFile.getInstance().PrintActionIntoFile(content);
+        }
+        #endregion
 
 
         #region Commands
@@ -112,6 +124,7 @@ namespace DAN_XLII_Andreja_Kolesar.ViewModel
                 {
                     _save = new RelayCommand(param => SaveExecute(), param => CanSaveExecute());
                 }
+                
                 return _save;
             }
         }
@@ -120,22 +133,9 @@ namespace DAN_XLII_Andreja_Kolesar.ViewModel
         {
             try
             {
-                //fill card
                 Service.Service.AddNewEmployee(newEmployee);
-                //string content1 = "Identity card with id: " + card.identitycard_id + " and registration number " + card.registration_number + " has been added.";
-                //LogIntoFile.getInstance().PrintActionIntoFile(content1);
-                //fill user
-                //user.first_name = newUser.firstname;
-                //user.last_name = newUser.lastname;
-                //user.location_id = newUser.location.location_id;
-                //user.jmbg = newUser.jmbg;
-                //user.birth_date = newUser.birth_date;
-                //user.identitycard_id = card.identitycard_id;
-                //user.sex = newUser.sex;
-                //Service.Service.AddOrUpdateUser(user);
-                //string content2 = "User  " + user.first_name + " " + user.last_name + " with id " + user.userID + " has been added.";
-                //LogIntoFile.getInstance().PrintActionIntoFile(content2);
-                isUpdatedEmployee= true;
+                backgroundWorker.RunWorkerAsync();
+                isUpdatedEmployee = true;
                 addEmployee.Close();
 
             }
@@ -189,4 +189,6 @@ namespace DAN_XLII_Andreja_Kolesar.ViewModel
         }
         #endregion
     }
+
+ 
 }

@@ -1,0 +1,2 @@
+﻿01-Jul-20 13:19 Employee  Jelica Misic with id 10 has been deleted.
+01-Jul-20 13:31 Employee  Sara Jokic with employeeId 12 has been added.

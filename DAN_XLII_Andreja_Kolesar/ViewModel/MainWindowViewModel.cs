@@ -17,12 +17,7 @@ namespace DAN_XLII_Andreja_Kolesar.View
         MainWindow main;
 
         #region Property
-        //BackgroundWorker object, setting properties of this object to true
-        BackgroundWorker backgroundWorker = new BackgroundWorker()
-        {
-            WorkerReportsProgress = true,
-            WorkerSupportsCancellation = true
-        };
+        BackgroundWorker backgroundWorker = new BackgroundWorker();
 
         private List<vwEmployee> _employeesList;
         public List<vwEmployee> employeesList
@@ -72,49 +67,20 @@ namespace DAN_XLII_Andreja_Kolesar.View
             Service.Service.AddLocationsToDb();
             employeesList = Service.Service.GetAllEmployees();
             // adding method to DoWork event
-            backgroundWorker.DoWork += DoWork;
-            //adding method to ProgressChanged event
-            backgroundWorker.ProgressChanged += ProgressChanged;
-            //adding method to RunWorkerCompleted event
-            backgroundWorker.RunWorkerCompleted += RunWorkerCompleted;
+            backgroundWorker.DoWork += DoWorkDelete;
         }
         #endregion
 
-        #region BackgroundWorkers's events handlers
-        public void DoWork(object sender, DoWorkEventArgs e)
+        #region BackgroundWorkers's DoWork event handler
+        public void DoWorkDelete(object sender, DoWorkEventArgs e)
         {
-
-            //e.Result();
-        }
-
-        public void ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            //setting value of user interface elements
-
-        }
-
-        public void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            //if printing cancelled
-            if (e.Cancelled)
-            {
-                // Message = "Printing cancelled.";
-            }
-            //if some error occurred during document printing
-            else if (e.Error != null)
-            {
-                //Message = e.Error.Message.ToString();
-            }
-            //if printing successfully finished
-            else
-            {
-                //Message = "Printing completed.";
-            }
+            string content = "Employee " + viewEmployee.fullname + " with employeeId " + viewEmployee.employeeId + " has been deleted.";
+            LogIntoFile.getInstance().PrintActionIntoFile(content);
         }
         #endregion
 
         #region delete and update commands
-        //Opend messagebox where user can confirm deleting data
+        //Open messagebox where user can confirm deleting data
         private ICommand _deleteThisEmployee;
         public ICommand deleteThisEmployee
         {
@@ -136,11 +102,10 @@ namespace DAN_XLII_Andreja_Kolesar.View
             if (result == MessageBoxResult.Yes)
             {
                 Service.Service.DeleteEmployee(viewEmployee.employeeId);
-                string content2 = "Employee  " + viewEmployee.fullname + " with id " + viewEmployee.employeeId + " has been deleted.";
-                //LogIntoFile.getInstance().PrintActionIntoFile(content2);
+                //run backgroundWorker
+                backgroundWorker.RunWorkerAsync();
                 isDeletedEmployee = true;
                 employeesList = Service.Service.GetAllEmployees();
-
             }
         }
         private bool CanDeleteThisUserExecute()

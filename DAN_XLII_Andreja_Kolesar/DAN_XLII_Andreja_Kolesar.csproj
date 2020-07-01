@@ -65,6 +65,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command\RelayCommand.cs" />
+    <Compile Include="LogIntoFile.cs" />
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Service\Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -163,6 +164,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Resource Include="Log.txt" />
     <Content Include="Service\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
