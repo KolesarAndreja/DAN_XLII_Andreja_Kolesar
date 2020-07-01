@@ -64,7 +64,7 @@ VALUES ('Marketing Department'),('Logistics Department'), ('Sales Department'),(
 GO
 CREATE VIEW vwEmployees
 as
-select e.employeeId, e.fullname, e.IdentityCardNumber, e.jmbg, genderName, e.dateOfBirth,
+select e.employeeId, e.fullname, e.IdentityCardNumber, e.jmbg, genderName, e.dateOfBirth, e.phone,
 CONCAT(l.street, ',', l.city, ',', l.country) AS location, sectorName, m.fullname AS manager
 from tblEmployees e
 inner join tblLocations l

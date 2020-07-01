@@ -24,7 +24,7 @@
                     Height="20"
                     x:Name="btnAddEmployee"
                     Content="Add Employee"
-                    Command="{Binding addEmployee, UpdateSourceTrigger = PropertyChanged}"
+                    Command="{Binding addNewEmployee, UpdateSourceTrigger = PropertyChanged}"
                     Margin="20,4,4,5"
                     FontWeight="Bold" />
         </StackPanel>
@@ -62,12 +62,12 @@
                                         Binding="{Binding sectorName}" />
                     <DataGridTextColumn Header="Manager"
                                         Binding="{Binding manager}" />
-                    <!--<DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Name="btnDelete"
                                         Content="Delete"
-                                        Command="{Binding Path=DataContext.deleteThisUser, RelativeSource= {RelativeSource FindAncestor,
+                                        Command="{Binding Path=DataContext.deleteThisEmployee, RelativeSource= {RelativeSource FindAncestor,
                                        AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"
                                         Margin="4"
                                         FontWeight="Bold" />
@@ -79,13 +79,13 @@
                             <DataTemplate>
                                 <Button Name="btnEdit"
                                         Content="Edit"
-                                        Command="{Binding Path=DataContext.editThisUser, RelativeSource= {RelativeSource FindAncestor,
+                                        Command="{Binding Path=DataContext.editThisEmployee, RelativeSource= {RelativeSource FindAncestor,
                                        AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"
                                         Margin="4"
                                         FontWeight="Bold" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>-->
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

@@ -24,7 +24,13 @@ namespace DAN_XLII_Andreja_Kolesar.Service
         public string country { get; set; }
         public string city { get; set; }
         public string street { get; set; }
-    
+        public string fullLocation
+        {
+            get
+            {
+                return street + "," + city + "," + country;
+            }
+        }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblEmployee> tblEmployees { get; set; }
     }

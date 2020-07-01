@@ -38,7 +38,7 @@ namespace DAN_XLII_Andreja_Kolesar.Service
                 }
             }
         }
-        #region Get lists of locations and employees
+        #region Get lists of tables
         //get all locations from the list
         public static List<tblLocation> GetAllLocations()
         {
@@ -59,6 +59,24 @@ namespace DAN_XLII_Andreja_Kolesar.Service
         }
 
         //get all employees
+        public static List<tblGender> GetAllGenders()
+        {
+            try
+            {
+                using (EmployeeEntities context = new EmployeeEntities())
+                {
+                    List<tblGender> list = new List<tblGender>();
+                    list = (from x in context.tblGenders select x).ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+
         public static List<vwEmployee> GetAllEmployees()
         {
             try
@@ -67,6 +85,24 @@ namespace DAN_XLII_Andreja_Kolesar.Service
                 {
                     List<vwEmployee> list = new List<vwEmployee>();
                     list = (from x in context.vwEmployees select x).ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+
+        public static List<tblEmployee> GetAllManagers()
+        {
+            try
+            {
+                using (EmployeeEntities context = new EmployeeEntities())
+                {
+                    List<tblEmployee> list = new List<tblEmployee>();
+                    list = (from x in context.tblEmployees select x).ToList();
                     return list;
                 }
             }
@@ -99,7 +135,7 @@ namespace DAN_XLII_Andreja_Kolesar.Service
         #endregion
 
         #region ADD AND UPDATE
-        public static tblEmployee AddNewCard(tblEmployee employee)
+        public static vwEmployee AddNewEmployee(vwEmployee employee)
         {
             try
             {
@@ -108,17 +144,17 @@ namespace DAN_XLII_Andreja_Kolesar.Service
                     //update
                     if (employee.employeeId != 0)
                     {
-                        tblEmployee employeeToEdit = (from c in context.tblEmployees where c.employeeId == employee.employeeId select c).First();
-                        employeeToEdit.fullname = employee.fullname;
-                        employeeToEdit.dateOfBirth = employee.dateOfBirth;
-                        employeeToEdit.genderId = employee.genderId;
-                        employeeToEdit.IdentityCardNumber = employee.IdentityCardNumber;
-                        employeeToEdit.jmbg = employee.jmbg;
-                        employeeToEdit.phone = employee.phone;
-                        employeeToEdit.locationId = employee.locationId;
-                        employeeToEdit.managerId = employee.managerId;
-                        employeeToEdit.sectorId = employee.sectorId;
-                        context.SaveChanges();
+                        //tblEmployee employeeToEdit = (from c in context.tblEmployees where c.employeeId == employee.employeeId select c).First();
+                        //employeeToEdit.fullname = employee.fullname;
+                        //employeeToEdit.dateOfBirth = employee.dateOfBirth;
+                        //employeeToEdit.genderId = employee.genderId;
+                        //employeeToEdit.IdentityCardNumber = employee.IdentityCardNumber;
+                        //employeeToEdit.jmbg = employee.jmbg;
+                        //employeeToEdit.phone = employee.phone;
+                        //employeeToEdit.locationId = employee.locationId;
+                        //employeeToEdit.managerId = employee.managerId;
+                        //employeeToEdit.sectorId = employee.sectorId;
+                        //context.SaveChanges();
                         return employee;
                     }
                     //add new
@@ -127,13 +163,25 @@ namespace DAN_XLII_Andreja_Kolesar.Service
                         tblEmployee newEmployee = new tblEmployee();
                         newEmployee.fullname = employee.fullname;
                         newEmployee.dateOfBirth = employee.dateOfBirth;
-                        newEmployee.genderId = employee.genderId;
+                        newEmployee.genderId = employee.getTblGender.genderId;
+
                         newEmployee.IdentityCardNumber = employee.IdentityCardNumber;
                         newEmployee.jmbg = employee.jmbg;
                         newEmployee.phone = employee.phone;
-                        newEmployee.locationId = employee.locationId;
-                        newEmployee.managerId = employee.managerId;
-                        newEmployee.sectorId = employee.sectorId;
+                        newEmployee.locationId = employee.getTblLocation.locationId;
+                        if (employee.getTblManager != null)
+                        {
+                            newEmployee.managerId = employee.getTblManager.employeeId;
+                        }
+                        else
+                        {
+                            newEmployee.managerId = null;
+                        }
+                        
+
+                        //check existance of sector name. Add new one if sectorName do not exist
+                        tblSector s = AddNewSector(employee.sectorName);
+                        newEmployee.sectorId = s.sectorId;
                         context.tblEmployees.Add(newEmployee);
                         context.SaveChanges();
                         employee.employeeId = newEmployee.employeeId;
@@ -178,6 +226,7 @@ namespace DAN_XLII_Andreja_Kolesar.Service
                 
             }
         }
+
         #endregion
 
     }

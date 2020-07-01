@@ -24,5 +24,11 @@ namespace DAN_XLII_Andreja_Kolesar.Service
         public string sectorName { get; set; }
         public string manager { get; set; }
         public string phone { get; set; }
+
+        //not mapping properties
+        public tblLocation getTblLocation { get; set; }
+        public tblEmployee getTblManager { get; set; }
+        public tblGender getTblGender { get; set; }
+
     }
 }
