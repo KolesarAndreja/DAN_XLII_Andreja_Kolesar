@@ -98,6 +98,8 @@
     <Compile Include="Service\vwEmployee.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Validation\ValidIC.cs" />
+    <Compile Include="Validation\ValidJmbg.cs" />
     <Compile Include="ViewModel\AddWindowViewModel.cs" />
     <Compile Include="ViewModel\EditWindowViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />

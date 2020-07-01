@@ -4,6 +4,15 @@
              xmlns:local="clr-namespace:DAN_XLII_Andreja_Kolesar"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ControlTemplate x:Key="textBoxErrorTemplate">
+            <StackPanel>
+                <Border BorderBrush="Red"
+                        BorderThickness="1">
+                    <AdornedElementPlaceholder Name="a" />
+                </Border>
+                <TextBlock Foreground="Red"
+                           Text="{Binding [0].ErrorContent}" />
+            </StackPanel>
+        </ControlTemplate>
     </Application.Resources>
 </Application>

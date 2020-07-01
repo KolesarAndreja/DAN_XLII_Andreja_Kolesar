@@ -20,8 +20,6 @@ namespace DAN_XLII_Andreja_Kolesar
                 log = new LogIntoFile();
             return log;
         }
-
-
         /// <summary>
         /// Print currrent action with current time into file
         /// </summary>

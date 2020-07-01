@@ -229,5 +229,30 @@ namespace DAN_XLII_Andreja_Kolesar.Service
 
         #endregion
 
+
+        public static bool IsEmployeeJmbg(string jmbg)
+        {
+            try
+            {
+                using (EmployeeEntities context = new EmployeeEntities())
+                {
+                    string result = (from x in context.tblEmployees where x.jmbg == jmbg select x.jmbg).FirstOrDefault();
+
+                    if (result != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception " + ex.Message.ToString());
+                return false;
+            }
+        }
     }
 }

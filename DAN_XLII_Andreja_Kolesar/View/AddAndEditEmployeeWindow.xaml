@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DAN_XLII_Andreja_Kolesar.View"
+        xmlns:Validation="clr-namespace:DAN_XLII_Andreja_Kolesar.Validation"
         mc:Ignorable="d"
         Title="AddAndEditEmployeeWindow"
         Height="450"
@@ -113,20 +114,51 @@
                  Text="{Binding newEmployee.dateOfBirth, UpdateSourceTrigger=PropertyChanged}"
                  Grid.ColumnSpan="4"
                  Margin="0,0,-65,2" />
-        <TextBox Grid.Column="3"
+        <TextBox Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                 Grid.Column="3"
+                 Grid.Row="5"
+                 Name="txtIdentityCardNumber"
+                 Height="20"
+                 Grid.ColumnSpan="4"
+                 Margin="0,1,-65,1">
+            <TextBox.Text>
+                <Binding Path="newEmployee.IdentityCardNumber"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnDataErrors="True"
+                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <Validation:ValidIC />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        
+        <!--<TextBox Grid.Column="3"
                  Grid.Row="5"
                  Name="txtIdentityCardNumber"
                  Height="20"
                  Text="{Binding newEmployee.IdentityCardNumber, UpdateSourceTrigger=PropertyChanged}"
                  Grid.ColumnSpan="4"
-                 Margin="0,0,-65,2" />
-        <TextBox Grid.Column="3"
+                 Margin="0,0,-65,2" />-->
+        <TextBox Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                 Grid.Column="3"
                  Grid.Row="7"
                  Name="txtJmbg"
                  Height="20"
-                 Text="{Binding newEmployee.jmbg, UpdateSourceTrigger=PropertyChanged}"
                  Grid.ColumnSpan="4"
-                 Margin="0,0,-65,2" />
+                 Margin="0,1,-65,1">
+            <TextBox.Text>
+                <Binding Path="newEmployee.jmbg"
+                         UpdateSourceTrigger="PropertyChanged"
+                         ValidatesOnDataErrors="True"
+                         NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <Validation:ValidJmbg />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        
         <ComboBox Grid.Column="3"
                   Grid.Row="9"
                   Name="cmbGender"
