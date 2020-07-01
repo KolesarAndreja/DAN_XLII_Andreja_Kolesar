@@ -12,9 +12,9 @@ namespace DAN_XLII_Andreja_Kolesar.Service
     /// </summary>
     class Service
     {
-        public static EmployeeSystemEntities db = new EmployeeSystemEntities();
+        public static EmployeeEntities db = new EmployeeEntities();
 
-        public void AddLocationsToDb()
+        public static void AddLocationsToDb()
         {
             string fileName = @"..\..\Lokacije.txt";
             using (StreamReader sr = File.OpenText(fileName))
@@ -40,11 +40,11 @@ namespace DAN_XLII_Andreja_Kolesar.Service
         }
         #region Get lists of locations and employees
         //get all locations from the list
-        public List<tblLocation> GetAllLocations()
+        public static List<tblLocation> GetAllLocations()
         {
             try
             {
-                using (EmployeeSystemEntities context = new EmployeeSystemEntities())
+                using (EmployeeEntities context = new EmployeeEntities())
                 {
                     List<tblLocation> list = new List<tblLocation>();
                     list = (from x in context.tblLocations select x).ToList();
@@ -59,11 +59,11 @@ namespace DAN_XLII_Andreja_Kolesar.Service
         }
 
         //get all employees
-        public List<vwEmployee> GetAllEmployees()
+        public static List<vwEmployee> GetAllEmployees()
         {
             try
             {
-                using (EmployeeSystemEntities context = new EmployeeSystemEntities())
+                using (EmployeeEntities context = new EmployeeEntities())
                 {
                     List<vwEmployee> list = new List<vwEmployee>();
                     list = (from x in context.vwEmployees select x).ToList();
@@ -79,11 +79,11 @@ namespace DAN_XLII_Andreja_Kolesar.Service
         #endregion
 
         #region DELETE Employee
-        public void DeleteEmployee(int employeeID)
+        public static void DeleteEmployee(int employeeID)
         {
             try
             {
-                using (EmployeeSystemEntities context = new EmployeeSystemEntities())
+                using (EmployeeEntities context = new EmployeeEntities())
                 {
                     tblEmployee employeeToDelete = (from u in context.tblEmployees where u.employeeId == employeeID select u).First();
                     context.tblEmployees.Remove(employeeToDelete);
@@ -96,6 +96,88 @@ namespace DAN_XLII_Andreja_Kolesar.Service
             }
         }
 
+        #endregion
+
+        #region ADD AND UPDATE
+        public static tblEmployee AddNewCard(tblEmployee employee)
+        {
+            try
+            {
+                using (EmployeeEntities context = new EmployeeEntities())
+                {
+                    //update
+                    if (employee.employeeId != 0)
+                    {
+                        tblEmployee employeeToEdit = (from c in context.tblEmployees where c.employeeId == employee.employeeId select c).First();
+                        employeeToEdit.fullname = employee.fullname;
+                        employeeToEdit.dateOfBirth = employee.dateOfBirth;
+                        employeeToEdit.genderId = employee.genderId;
+                        employeeToEdit.IdentityCardNumber = employee.IdentityCardNumber;
+                        employeeToEdit.jmbg = employee.jmbg;
+                        employeeToEdit.phone = employee.phone;
+                        employeeToEdit.locationId = employee.locationId;
+                        employeeToEdit.managerId = employee.managerId;
+                        employeeToEdit.sectorId = employee.sectorId;
+                        context.SaveChanges();
+                        return employee;
+                    }
+                    //add new
+                    else
+                    {
+                        tblEmployee newEmployee = new tblEmployee();
+                        newEmployee.fullname = employee.fullname;
+                        newEmployee.dateOfBirth = employee.dateOfBirth;
+                        newEmployee.genderId = employee.genderId;
+                        newEmployee.IdentityCardNumber = employee.IdentityCardNumber;
+                        newEmployee.jmbg = employee.jmbg;
+                        newEmployee.phone = employee.phone;
+                        newEmployee.locationId = employee.locationId;
+                        newEmployee.managerId = employee.managerId;
+                        newEmployee.sectorId = employee.sectorId;
+                        context.tblEmployees.Add(newEmployee);
+                        context.SaveChanges();
+                        employee.employeeId = newEmployee.employeeId;
+                        return employee;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
+            }
+        }
+        //return sector if it exist, or add new one if it do not exist
+        public static tblSector AddNewSector(string sector)
+        {
+            try
+            {
+                using (EmployeeEntities context = new EmployeeEntities())
+                {
+                    tblSector result = (from x in context.tblSectors where x.sectorName == sector select x).FirstOrDefault();
+
+                    if (result == null)
+                    {
+                        tblSector newSector = new tblSector();
+                        newSector.sectorName = sector;
+                        context.tblSectors.Add(newSector);
+                        context.SaveChanges();
+                        return newSector;
+                        
+                    }
+                    else
+                    {
+                        return result;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception " + ex.Message.ToString());
+                return null;
+                
+            }
+        }
         #endregion
 
     }

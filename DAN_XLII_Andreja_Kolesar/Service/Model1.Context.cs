@@ -13,10 +13,10 @@ namespace DAN_XLII_Andreja_Kolesar.Service
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EmployeeSystemEntities : DbContext
+    public partial class EmployeeEntities : DbContext
     {
-        public EmployeeSystemEntities()
-            : base("name=EmployeeSystemEntities")
+        public EmployeeEntities()
+            : base("name=EmployeeEntities")
         {
         }
     

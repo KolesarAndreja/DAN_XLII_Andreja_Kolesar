@@ -23,5 +23,6 @@ namespace DAN_XLII_Andreja_Kolesar.Service
         public string location { get; set; }
         public string sectorName { get; set; }
         public string manager { get; set; }
+        public string phone { get; set; }
     }
 }

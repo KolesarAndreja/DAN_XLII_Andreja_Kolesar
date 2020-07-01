@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EmployeeSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EmployeeSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblEmployees">
           <Key>
             <PropertyRef Name="employeeId" />
@@ -52,8 +52,8 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
             <PropertyRef Name="IdentityCardNumber" />
             <PropertyRef Name="jmbg" />
             <PropertyRef Name="dateOfBirth" />
+            <PropertyRef Name="phone" />
             <PropertyRef Name="location" />
-            <PropertyRef Name="manager" />
           </Key>
           <Property Name="employeeId" Type="int" Nullable="false" />
           <Property Name="fullname" Type="varchar" MaxLength="30" Nullable="false" />
@@ -61,11 +61,12 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
           <Property Name="jmbg" Type="char" MaxLength="13" Nullable="false" />
           <Property Name="genderName" Type="varchar" MaxLength="10" />
           <Property Name="dateOfBirth" Type="date" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="location" Type="varchar" MaxLength="82" Nullable="false" />
           <Property Name="sectorName" Type="varchar" MaxLength="40" />
-          <Property Name="manager" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="manager" Type="varchar" MaxLength="30" />
         </EntityType>
-        <Association Name="FK__tblEmploy__gende__74AE54BC">
+        <Association Name="FK__tblEmploy__gende__69FBBC1F">
           <End Role="tblGenders" Type="Self.tblGenders" Multiplicity="0..1" />
           <End Role="tblEmployees" Type="Self.tblEmployees" Multiplicity="*" />
           <ReferentialConstraint>
@@ -77,7 +78,7 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblEmploy__locat__73BA3083">
+        <Association Name="FK__tblEmploy__locat__690797E6">
           <End Role="tblLocations" Type="Self.tblLocations" Multiplicity="0..1" />
           <End Role="tblEmployees" Type="Self.tblEmployees" Multiplicity="*" />
           <ReferentialConstraint>
@@ -89,7 +90,7 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblEmploy__secto__75A278F5">
+        <Association Name="FK__tblEmploy__secto__6AEFE058">
           <End Role="tblSectors" Type="Self.tblSectors" Multiplicity="0..1" />
           <End Role="tblEmployees" Type="Self.tblEmployees" Multiplicity="*" />
           <ReferentialConstraint>
@@ -114,26 +115,26 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
     [vwEmployees].[jmbg] AS [jmbg], 
     [vwEmployees].[genderName] AS [genderName], 
     [vwEmployees].[dateOfBirth] AS [dateOfBirth], 
+    [vwEmployees].[phone] AS [phone], 
     [vwEmployees].[location] AS [location], 
     [vwEmployees].[sectorName] AS [sectorName], 
     [vwEmployees].[manager] AS [manager]
     FROM [dbo].[vwEmployees] AS [vwEmployees]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__tblEmploy__gende__74AE54BC" Association="Self.FK__tblEmploy__gende__74AE54BC">
+          <AssociationSet Name="FK__tblEmploy__gende__69FBBC1F" Association="Self.FK__tblEmploy__gende__69FBBC1F">
             <End Role="tblGenders" EntitySet="tblGenders" />
             <End Role="tblEmployees" EntitySet="tblEmployees" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblEmploy__locat__73BA3083" Association="Self.FK__tblEmploy__locat__73BA3083">
+          <AssociationSet Name="FK__tblEmploy__locat__690797E6" Association="Self.FK__tblEmploy__locat__690797E6">
             <End Role="tblLocations" EntitySet="tblLocations" />
             <End Role="tblEmployees" EntitySet="tblEmployees" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblEmploy__secto__75A278F5" Association="Self.FK__tblEmploy__secto__75A278F5">
+          <AssociationSet Name="FK__tblEmploy__secto__6AEFE058" Association="Self.FK__tblEmploy__secto__6AEFE058">
             <End Role="tblSectors" EntitySet="tblSectors" />
             <End Role="tblEmployees" EntitySet="tblEmployees" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EmployeeSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -151,9 +152,9 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
           <Property Name="locationId" Type="Int32" />
           <Property Name="genderId" Type="Int32" />
           <Property Name="sectorId" Type="Int32" />
-          <NavigationProperty Name="tblGender" Relationship="Self.FK__tblEmploy__gende__74AE54BC" FromRole="tblEmployees" ToRole="tblGenders" />
-          <NavigationProperty Name="tblLocation" Relationship="Self.FK__tblEmploy__locat__73BA3083" FromRole="tblEmployees" ToRole="tblLocations" />
-          <NavigationProperty Name="tblSector" Relationship="Self.FK__tblEmploy__secto__75A278F5" FromRole="tblEmployees" ToRole="tblSectors" />
+          <NavigationProperty Name="tblGender" Relationship="Self.FK__tblEmploy__gende__5E8A0973" FromRole="tblEmployees" ToRole="tblGenders" />
+          <NavigationProperty Name="tblLocation" Relationship="Self.FK__tblEmploy__locat__5D95E53A" FromRole="tblEmployees" ToRole="tblLocations" />
+          <NavigationProperty Name="tblSector" Relationship="Self.FK__tblEmploy__secto__5F7E2DAC" FromRole="tblEmployees" ToRole="tblSectors" />
         </EntityType>
         <EntityType Name="tblGender">
           <Key>
@@ -161,7 +162,7 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
           </Key>
           <Property Name="genderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="genderName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblEmployees" Relationship="Self.FK__tblEmploy__gende__74AE54BC" FromRole="tblGenders" ToRole="tblEmployees" />
+          <NavigationProperty Name="tblEmployees" Relationship="Self.FK__tblEmploy__gende__5E8A0973" FromRole="tblGenders" ToRole="tblEmployees" />
         </EntityType>
         <EntityType Name="tblLocation">
           <Key>
@@ -171,7 +172,7 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
           <Property Name="country" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="city" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="street" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tblEmployees" Relationship="Self.FK__tblEmploy__locat__73BA3083" FromRole="tblLocations" ToRole="tblEmployees" />
+          <NavigationProperty Name="tblEmployees" Relationship="Self.FK__tblEmploy__locat__5D95E53A" FromRole="tblLocations" ToRole="tblEmployees" />
         </EntityType>
         <EntityType Name="tblSector">
           <Key>
@@ -179,7 +180,7 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
           </Key>
           <Property Name="sectorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="sectorName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblEmployees" Relationship="Self.FK__tblEmploy__secto__75A278F5" FromRole="tblSectors" ToRole="tblEmployees" />
+          <NavigationProperty Name="tblEmployees" Relationship="Self.FK__tblEmploy__secto__5F7E2DAC" FromRole="tblSectors" ToRole="tblEmployees" />
         </EntityType>
         <EntityType Name="vwEmployee">
           <Key>
@@ -189,7 +190,7 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
             <PropertyRef Name="jmbg" />
             <PropertyRef Name="dateOfBirth" />
             <PropertyRef Name="location" />
-            <PropertyRef Name="manager" />
+            <PropertyRef Name="phone" />
           </Key>
           <Property Name="employeeId" Type="Int32" Nullable="false" />
           <Property Name="fullname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
@@ -199,9 +200,10 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
           <Property Name="dateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="location" Type="String" MaxLength="82" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="sectorName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="manager" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="manager" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="FK__tblEmploy__gende__74AE54BC">
+        <Association Name="FK__tblEmploy__gende__5E8A0973">
           <End Role="tblGenders" Type="Self.tblGender" Multiplicity="0..1" />
           <End Role="tblEmployees" Type="Self.tblEmployee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -213,7 +215,7 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblEmploy__locat__73BA3083">
+        <Association Name="FK__tblEmploy__locat__5D95E53A">
           <End Role="tblLocations" Type="Self.tblLocation" Multiplicity="0..1" />
           <End Role="tblEmployees" Type="Self.tblEmployee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -225,7 +227,7 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblEmploy__secto__75A278F5">
+        <Association Name="FK__tblEmploy__secto__5F7E2DAC">
           <End Role="tblSectors" Type="Self.tblSector" Multiplicity="0..1" />
           <End Role="tblEmployees" Type="Self.tblEmployee" Multiplicity="*" />
           <ReferentialConstraint>
@@ -237,21 +239,21 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="EmployeeSystemEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="EmployeeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="tblEmployees" EntityType="Self.tblEmployee" />
           <EntitySet Name="tblGenders" EntityType="Self.tblGender" />
           <EntitySet Name="tblLocations" EntityType="Self.tblLocation" />
           <EntitySet Name="tblSectors" EntityType="Self.tblSector" />
           <EntitySet Name="vwEmployees" EntityType="Self.vwEmployee" />
-          <AssociationSet Name="FK__tblEmploy__gende__74AE54BC" Association="Self.FK__tblEmploy__gende__74AE54BC">
+          <AssociationSet Name="FK__tblEmploy__gende__5E8A0973" Association="Self.FK__tblEmploy__gende__5E8A0973">
             <End Role="tblGenders" EntitySet="tblGenders" />
             <End Role="tblEmployees" EntitySet="tblEmployees" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblEmploy__locat__73BA3083" Association="Self.FK__tblEmploy__locat__73BA3083">
+          <AssociationSet Name="FK__tblEmploy__locat__5D95E53A" Association="Self.FK__tblEmploy__locat__5D95E53A">
             <End Role="tblLocations" EntitySet="tblLocations" />
             <End Role="tblEmployees" EntitySet="tblEmployees" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblEmploy__secto__75A278F5" Association="Self.FK__tblEmploy__secto__75A278F5">
+          <AssociationSet Name="FK__tblEmploy__secto__5F7E2DAC" Association="Self.FK__tblEmploy__secto__5F7E2DAC">
             <End Role="tblSectors" EntitySet="tblSectors" />
             <End Role="tblEmployees" EntitySet="tblEmployees" />
           </AssociationSet>
@@ -261,7 +263,7 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EmployeeSystemModelStoreContainer" CdmEntityContainer="EmployeeSystemEntities">
+        <EntityContainerMapping StorageEntityContainer="EmployeeSystemModelStoreContainer" CdmEntityContainer="EmployeeEntities">
           <EntitySetMapping Name="tblEmployees">
             <EntityTypeMapping TypeName="EmployeeSystemModel.tblEmployee">
               <MappingFragment StoreEntitySet="tblEmployees">
@@ -307,6 +309,7 @@ warning 6002: The table/view 'EmployeeSystem.dbo.vwEmployees' does not have a pr
           <EntitySetMapping Name="vwEmployees">
             <EntityTypeMapping TypeName="EmployeeSystemModel.vwEmployee">
               <MappingFragment StoreEntitySet="vwEmployees">
+                <ScalarProperty Name="phone" ColumnName="phone" />
                 <ScalarProperty Name="employeeId" ColumnName="employeeId" />
                 <ScalarProperty Name="fullname" ColumnName="fullname" />
                 <ScalarProperty Name="IdentityCardNumber" ColumnName="IdentityCardNumber" />

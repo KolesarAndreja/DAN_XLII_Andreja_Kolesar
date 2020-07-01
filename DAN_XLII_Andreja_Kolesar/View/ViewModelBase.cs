@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace DAN_XLII_Andreja_Kolesar.View
 {

@@ -33,8 +33,8 @@
               Height="auto"
               Width="auto">
             <DataGrid Name="DataGridPlayers"
-                      ItemsSource="{Binding userList, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding viewUser, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding employeesList, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding viewEmployee, UpdateSourceTrigger=PropertyChanged}"
                       IsReadOnly="True"
                       HeadersVisibility="Column"
                       AutoGenerateColumns="False"
