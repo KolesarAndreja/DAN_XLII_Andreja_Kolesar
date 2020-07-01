@@ -147,15 +147,14 @@ namespace DAN_XLII_Andreja_Kolesar.ViewModel
 
         private bool CanSaveExecute()
         {
-            //if (String.IsNullOrEmpty(newEmployee.fullname) || String.IsNullOrEmpty(newEmployee.sectorName) || String.IsNullOrEmpty(newEmployee.jmbg) || String.IsNullOrEmpty(newEmployee.IdentityCardNumber) || String.IsNullOrEmpty(newEmployee.phone) || newEmployee.getTblLocation == null)
-            //{
-            //    return false;
-            //}
-            //else
-            //{
-            //    return true;
-            //}
-            return true;
+            if (String.IsNullOrEmpty(newEmployee.fullname) || newEmployee.dateOfBirth == null || String.IsNullOrEmpty(newEmployee.jmbg) || String.IsNullOrEmpty(newEmployee.IdentityCardNumber) || String.IsNullOrEmpty(newEmployee.phone) || newEmployee.getTblLocation == null || String.IsNullOrEmpty(newEmployee.sectorName) || newEmployee.getTblGender ==null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         private ICommand _close;

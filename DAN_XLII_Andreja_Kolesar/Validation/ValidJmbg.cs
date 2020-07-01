@@ -32,7 +32,7 @@ namespace DAN_XLII_Andreja_Kolesar.Validation
 
                 //check avaibility of jmbg
                 if (Service.Service.IsEmployeeJmbg(jmbg))
-                    return new ValidationResult(false, "You cannot use this jmbg because it is already in the database.");
+                    return new ValidationResult(false, "This jmbg is already in the database.");
 
 
                 //chack part which refers to birth date
@@ -56,7 +56,7 @@ namespace DAN_XLII_Andreja_Kolesar.Validation
                     DateTime date = DateTime.Parse(date_of_birth);
                     if (date > now)
                     {
-                        return new ValidationResult(false, "You cannot use this jmbg because birth date is in the future.");
+                        return new ValidationResult(false, "Date of birth cannot be in a future.");
                     }
                     else
                     {

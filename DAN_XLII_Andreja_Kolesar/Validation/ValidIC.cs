@@ -20,6 +20,15 @@ namespace DAN_XLII_Andreja_Kolesar.Validation
             }
             else
             {
+                //check digits
+                for (int i = 0; i < 9; i++)
+                {
+                    if (!int.TryParse(number[i].ToString(), out int digit))
+                    {
+                        return new ValidationResult(false, "IC number contain 13 digits");
+                    }
+                }
+
                 return new ValidationResult(true, null);
             }
         }
