@@ -61,12 +61,11 @@ VALUES ('male'),('female'),('other');
 INSERT INTO tblSectors(sectorName)
 VALUES ('Marketing Department'),('Logistics Department'), ('Sales Department'),('Finance Department');
 
-
 GO
 CREATE VIEW vwEmployees
 as
-select e.employeeId, e.fullname, e.IdentityCardNumber, e.jmbg, genderName, e.dateOfBirth,
-CONCAT(street, ',', city, ',', country) AS location, sectorName, m.fullname AS manager
+select e.employeeId, e.fullname, e.IdentityCardNumber, e.jmbg, genderName, e.dateOfBirth, e.phone,
+CONCAT(l.street, ',', l.city, ',', l.country) AS location, sectorName, m.fullname AS manager
 from tblEmployees e
 inner join tblLocations l
 on e.locationId = l.locationId
@@ -74,7 +73,5 @@ inner join tblGenders g
 on g.genderId = e.genderId
 inner join tblSectors s
 on e.sectorId = s.sectorId
-inner join tblEmployees m
-on e.managerId = m.employeeId
-ORDER BY e.fullname
-OFFSET 0 ROWS;
+left join tblEmployees m
+on e.managerId = m.employeeId;
